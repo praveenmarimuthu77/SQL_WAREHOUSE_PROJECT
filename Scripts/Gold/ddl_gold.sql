@@ -16,8 +16,7 @@ SELECT
     la.cntry                           AS country,
     ci.cst_marital_status              AS marital_status,
     CASE 
-        WHEN ci.cst_gndr != 'n/a' THEN ci.cst_gndr -- CRM is the primary source for gender
-        ELSE COALESCE(ca.gen, 'n/a')  			   -- Fallback to ERP data
+        WHEN ci.cst_gndr != 'n/a' THEN ci.cst_gndr 
     END                                AS gender,
     ca.bdate                           AS birthdate,
     ci.cst_create_date                 AS create_date
@@ -52,7 +51,7 @@ SELECT
 FROM silver.crm_prd_info pn
 LEFT JOIN silver.erp_px_cat_g1v2 pc
     ON pn.cat_id = pc.id
-WHERE pn.prd_end_dt IS NULL;   -- keep only current (active) products
+WHERE pn.prd_end_dt IS NULL;   
 
 
 -- Ensure schema exists
